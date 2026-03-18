@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="WebShop.Application/WebShop.Application.csproj" Id="515db157-3712-4819-b02c-31d67e9b52aa" />
+  <Project Path="WebShop.Domain/WebShop.Domain.csproj" Id="9032d73f-d062-4ec2-8b67-f95c56d9d365" />
+  <Project Path="WebShop.Infrastructure/WebShop.Infrastructure.csproj" Id="5a964568-0b75-4be4-be5f-bcdd8c313f9d" />
+  <Project Path="WebShop/WebApi.csproj" />
+</Solution>
