@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /WebShop/appsettings.json
+/WebShop/appsettings.Development.json
