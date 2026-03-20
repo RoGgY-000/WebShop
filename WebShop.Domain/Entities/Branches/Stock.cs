@@ -4,8 +4,9 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Stock
+    public sealed class Stock : IEntity<Guid>
     {
+        public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public int BranchId { get; set; }
         public required Product Product { get; set; }

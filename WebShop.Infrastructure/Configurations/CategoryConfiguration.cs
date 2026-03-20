@@ -20,7 +20,9 @@ namespace WebShop.Infrastructure.Configurations
 
             builder.HasOne(c => c.ParentCategory)
                    .WithMany(c => c.SubCategories)
-                   .HasForeignKey(c => c.ParentCategoryId);
+                   .HasForeignKey(c => c.ParentCategoryId)
+                   .OnDelete(DeleteBehavior.Restrict)
+                   .IsRequired(false);
 
             builder.HasMany(c => c.Attributes)
                    .WithMany(a => a.Categories)

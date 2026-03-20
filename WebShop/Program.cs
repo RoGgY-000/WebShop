@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
 using WebApi.Middlewares;
 using WebShop.Application.Services;
 using WebShop.Domain.Interfaces;
@@ -17,11 +18,11 @@ namespace WebShop
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
             builder.Services.AddScoped
                 (typeof(IRepository<,>), typeof(Repository<,>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<UserService>();
+            builder.Services.AddValidatorsFromAssembly(typeof(BaseService<,,>).Assembly);
             WebApplication app = builder.Build();
 
             if (app.Environment.IsDevelopment())

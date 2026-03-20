@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Attribute
+    public sealed class Attribute : IEntity<int>
     {
         public int Id { get; set; }
         public required AttributeType AttributeType { get; set; }
