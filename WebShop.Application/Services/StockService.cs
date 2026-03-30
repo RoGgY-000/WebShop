@@ -22,7 +22,7 @@ namespace WebShop.Application.Services
         {
             Stock stock = request.Adapt<Stock>();
             ValidationResult result = validator.Validate(stock);
-            if (result.IsValid)
+            if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
             }

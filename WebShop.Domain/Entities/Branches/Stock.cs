@@ -8,7 +8,7 @@ namespace WebShop.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
         public required Product Product { get; set; }
         public required Branch Branch { get; set; }
         public decimal Price { get; set; }

@@ -9,10 +9,10 @@ using WebShop.Domain.Interfaces;
 namespace WebShop.Application.Services
 {
     public class RoleService
-        (IRepository<Role, int> repository,
+        (IRepository<Role, Guid> repository,
         IUnitOfWork unitOfWork,
         RoleValidator validator)
-        : BaseService<Role, int, RoleResponse>
+        : BaseService<Role, Guid, RoleResponse>
         (repository, unitOfWork)
     {
     }

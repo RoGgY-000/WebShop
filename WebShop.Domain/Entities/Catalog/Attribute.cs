@@ -4,9 +4,9 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Attribute : IEntity<int>
+    public sealed class Attribute : IEntity<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public required AttributeType AttributeType { get; set; }
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public required string Name { get; set; }

@@ -8,7 +8,7 @@ namespace WebShop.Domain.Interfaces
     public interface IRepository<T,TKey> where T : class, IEntity<TKey>
     {
         Task<T?> GetByIdAsync (TKey id);
-        Task<List<T>> GetAllAsync ();
+        Task<T[]> GetAllAsync ();
         void Add (T entity);
         void Update (T entity);
         void Remove (T entity);

@@ -12,7 +12,7 @@ namespace WebShop.Domain.Entities
         public required OrderStatus Status { get; set; }
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
         public Guid UserId { get; set; }
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
         public int StatusId { get; set; }
         public DateTime DateTimeCreated { get; set; }
     }

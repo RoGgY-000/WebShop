@@ -25,11 +25,11 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("AttributeCategory", b =>
                 {
-                    b.Property<int>("AttributesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("AttributesId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CategoriesId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("AttributesId", "CategoriesId");
 
@@ -40,8 +40,8 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("RolesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("uuid");
@@ -55,11 +55,9 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.Attribute", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -96,11 +94,9 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.Branch", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -119,19 +115,17 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<int>("ParentCategoryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("ParentCategoryId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -146,8 +140,8 @@ namespace WebShop.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("BranchId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BranchId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("DateTimeCreated")
                         .HasColumnType("timestamp with time zone");
@@ -175,6 +169,9 @@ namespace WebShop.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
@@ -220,8 +217,8 @@ namespace WebShop.Infrastructure.Migrations
                     b.Property<decimal>("BasePrice")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -241,11 +238,9 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.ProductImage", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
@@ -266,11 +261,9 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -289,8 +282,11 @@ namespace WebShop.Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("BranchId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BranchId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -383,8 +379,7 @@ namespace WebShop.Infrastructure.Migrations
                     b.HasOne("WebShop.Domain.Entities.Category", "ParentCategory")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentCategory");
                 });

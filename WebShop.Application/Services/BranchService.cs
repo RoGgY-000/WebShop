@@ -9,9 +9,9 @@ using Mapster;
 namespace WebShop.Application.Services
 {
     public class BranchService 
-        (IRepository<Branch, int> repository,
+        (IRepository<Branch, Guid> repository,
         IUnitOfWork unitOfWork)
-        : BaseService<Branch, int, BranchResponse>
+        : BaseService<Branch, Guid, BranchResponse>
         (repository, unitOfWork)
     {
         public async Task<BranchResponse> CreateBranchAsync (CreateBranchRequest request)

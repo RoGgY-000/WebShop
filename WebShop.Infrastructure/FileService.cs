@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
-using WebShop.Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
+using WebShop.Application.Services;
+using WebShop.Domain.Entities;
 
 namespace WebShop.Infrastructure
 {
     public class FileService (IWebHostEnvironment env) : IFileService
     {
-        public async Task<string> SaveFileAsync (Stream fileStream, string fileName, string folderName)
+        public async Task<string> SaveFileAsync (IFormFile file, ProductImage productImage)
         {
-            // Создаем уникальное имя: Guid + расширение
-            string uniqueName = $"{Guid.NewGuid()}{Path.GetExtension(fileName)}";
-            string relativePath = Path.Combine("uploads", folderName, uniqueName);
-            string fullPath = Path.Combine(env.WebRootPath, relativePath);
+            string fileName = $"{productImage.Id}{Path.GetExtension(file.FileName)}";
+            string folderPath = Path.Combine(env.WebRootPath, $"products/{productImage.ProductId}/images");
 
-            // Создаем папку, если её нет
-            Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
-            using FileStream targetStream = new(fullPath, FileMode.Create);
-            await fileStream.CopyToAsync(targetStream);
+            string filePath = Path.Combine(folderPath, fileName);
+            using FileStream stream = new(filePath, FileMode.Create);
+            await file.CopyToAsync(stream);
+            stream.Close();
 
-            return relativePath.Replace("\\", "/"); // Для URL всегда используем "/"
+            return fileName.Replace("\\", "/");
         }
 
         public void DeleteFile (string path)

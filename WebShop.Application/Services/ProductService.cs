@@ -19,7 +19,7 @@ namespace WebShop.Application.Services
         {
             Product product = request.Adapt<Product>();
             ValidationResult result = validator.Validate(product);
-            if (result.IsValid)
+            if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
             }

@@ -8,10 +8,10 @@ using WebShop.Domain.Interfaces;
 
 namespace WebShop.Application.Services
 {
-    public class AttributeService (IRepository<Domain.Entities.Attribute, int> repository,
+    public class AttributeService (IRepository<Domain.Entities.Attribute, Guid> repository,
         IUnitOfWork unitOfWork,
         AttributeValidator validator)
-        : BaseService<Domain.Entities.Attribute, int, AttributeResponse>
+        : BaseService<Domain.Entities.Attribute, Guid, AttributeResponse>
         (repository, unitOfWork)
     {
     }

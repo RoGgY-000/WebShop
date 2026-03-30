@@ -13,7 +13,7 @@ namespace WebShop.Infrastructure.Repositories
 
         public async Task<T?> GetByIdAsync (TKey id) => await _dbSet.FindAsync(id);
 
-        public async Task<List<T>> GetAllAsync () => await _dbSet.ToListAsync();
+        public async Task<T[]> GetAllAsync () => await _dbSet.ToArrayAsync();
 
         public void Add (T entity) => _dbSet.Add(entity);
 
