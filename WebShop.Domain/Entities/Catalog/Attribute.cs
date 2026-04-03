@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Attribute : IEntity<Guid>
+    public sealed class Attribute : BaseEntity<Guid>
     {
         public Guid Id { get; set; }
         public required AttributeType AttributeType { get; set; }

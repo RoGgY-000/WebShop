@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class ProductImage : IEntity<Guid>
+    public sealed class ProductImage : BaseEntity<Guid>
     {
         public Guid Id { get; set; }
         public required Product Product { get; set; }

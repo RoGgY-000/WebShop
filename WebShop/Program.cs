@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Middlewares;
 using WebShop.Application.Services;
+using WebShop.Domain.Entities;
 using WebShop.Domain.Interfaces;
 using WebShop.Infrastructure;
 using WebShop.Infrastructure.Repositories;
@@ -17,12 +18,12 @@ namespace WebShop.WebApi
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<CategoryService>();
-            builder.Services.AddScoped<ProductImageService>();
 
+            builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            builder.Services.AddScoped<IRepository<Category, Guid>, CategoryRepository>();
+            builder.Services.AddScoped(typeof(BaseService<,,>));
             builder.Services.AddScoped<IFileService, FileService>();
+
             builder.Services.AddValidatorsFromAssembly(typeof(BaseService<,,>).Assembly);
             WebApplication app = builder.Build();
             app.UseStaticFiles();

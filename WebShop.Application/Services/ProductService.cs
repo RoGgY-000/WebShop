@@ -10,10 +10,9 @@ namespace WebShop.Application.Services
 {
     public class ProductService
         (IRepository<Product, Guid> repository,
-        IUnitOfWork unitOfWork,
         ProductValidator validator)
         : BaseService<Product, Guid, ProductResponse>
-        (repository, unitOfWork)
+        (repository, validator)
     {
         public async Task<ProductResponse> CreateProductAsync (CreateProductRequest request)
         {
@@ -24,7 +23,20 @@ namespace WebShop.Application.Services
                 throw new ValidationException(result.Errors);
             }
             repository.Add(product);
-            await unitOfWork.SaveChangesAsync();
+            await repository.SaveChangesAsync();
+            return product.Adapt<ProductResponse>();
+        }
+
+        public async Task<ProductResponse> Update (UpdateProductRequest request)
+        {
+            Product product = request.Adapt<Product>();
+            ValidationResult result = validator.Validate(product);
+            if ( !result.IsValid )
+            {
+                throw new ValidationException(result.Errors);
+            }
+            repository.Update(product);
+            await repository.SaveChangesAsync();
             return product.Adapt<ProductResponse>();
         }
     }

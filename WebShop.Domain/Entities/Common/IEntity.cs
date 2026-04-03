@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public interface IEntity<TKey>
+    public class BaseEntity<TKey>
     {
         public TKey Id { get; set; }
     }

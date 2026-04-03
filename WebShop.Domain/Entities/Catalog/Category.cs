@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Category : IEntity<Guid>
+    public sealed class Category : BaseEntity<Guid>
     {
         public Guid Id { get; set; }
         public Category? ParentCategory { get; set; }

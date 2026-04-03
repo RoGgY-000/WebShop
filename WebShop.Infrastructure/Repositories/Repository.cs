@@ -7,13 +7,13 @@ using WebShop.Domain.Interfaces;
 
 namespace WebShop.Infrastructure.Repositories
 {
-    public class Repository<T, TKey>(AppDbContext context) : IRepository<T, TKey> where T : class, IEntity<TKey>
+    public class Repository<T, TKey> (AppDbContext context) : IRepository<T, TKey> where T : BaseEntity<TKey>
     {
-        private readonly DbSet<T> _dbSet = context.Set<T>();
+        protected readonly DbSet<T> _dbSet = context.Set<T>();
 
-        public async Task<T?> GetByIdAsync (TKey id) => await _dbSet.FindAsync(id);
+        public virtual async Task<T?> GetByIdAsync (TKey id) => await _dbSet.FindAsync(id);
 
-        public async Task<T[]> GetAllAsync () => await _dbSet.ToArrayAsync();
+        public virtual async Task<T[]> GetAllAsync () => await _dbSet.ToArrayAsync();
 
         public void Add (T entity) => _dbSet.Add(entity);
 

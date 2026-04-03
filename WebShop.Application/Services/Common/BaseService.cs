@@ -10,13 +10,17 @@ using FluentValidation;
 
 namespace WebShop.Application.Services
 {
-    public abstract class BaseService<TEntity, TKey, TResponse> 
-        (IRepository<TEntity, TKey> repository, 
-        IUnitOfWork unitOfWork)
-        where TEntity : class, IEntity<TKey>
+    public class BaseService<TEntity, TKey, TResponse> 
+        (IRepository<TEntity, TKey> repository,
+        IValidator<TEntity> validator)
+        where TEntity : BaseEntity<TKey>
     {
         protected IRepository<TEntity,TKey> repository = repository;
-        protected IUnitOfWork unitOfWork = unitOfWork;
+        public async Task<TResponse[]> GetAllAsync ()
+        {
+            TEntity[] entities = await repository.GetAllAsync();
+            return entities.Adapt<TResponse[]>();
+        }
 
         public async Task<TResponse> GetByIdAsync (TKey id)
         {
@@ -24,17 +28,31 @@ namespace WebShop.Application.Services
             return entity.Adapt<TResponse>();
         }
 
+        public async Task<TResponse> Create (IRequest request)
+        {
+            TEntity entity = request.Adapt<TEntity>();
+            await validator.ValidateAndThrowAsync(entity);
+            repository.Add(entity);
+            await repository.SaveChangesAsync();
+            return entity.Adapt<TResponse>();
+        }
+
+        public async Task<TResponse> Update (IRequest request)
+        {
+            TEntity entity = request.Adapt<TEntity>();
+            await validator.ValidateAndThrowAsync(entity);
+            repository.Update(entity);
+            await repository.SaveChangesAsync();
+            return entity.Adapt<TResponse>();
+        }
+
         public async Task<TResponse> RemoveById (TKey id)
         {
             TEntity entity = await repository.GetByIdAsync(id) ?? throw new EntityNotFoundException();
             repository.Remove(entity);
+            await repository.SaveChangesAsync();
             return entity.Adapt<TResponse>();
         }
 
-        public async Task<TResponse[]> GetAllAsync ()
-        {
-            TEntity[] entities = await repository.GetAllAsync();
-            return entities.Adapt<TResponse[]>();
-        }
     }
 }

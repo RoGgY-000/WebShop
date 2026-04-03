@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Branch : IEntity<Guid>
+    public sealed class Branch : BaseEntity<Guid>
     {
         public Guid Id { get; set; }
         public ICollection<Stock> Stocks { get; set; } = new List<Stock>();

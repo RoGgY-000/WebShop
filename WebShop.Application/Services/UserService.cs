@@ -10,10 +10,9 @@ namespace WebShop.Application.Services
 {
     public class UserService 
         (IRepository<User, Guid> repository,
-        IUnitOfWork unitOfWork,
         IValidator<User> validator)
         : BaseService<User,Guid,UserResponse>
-        (repository, unitOfWork)
+        (repository, validator)
     {
         public async Task<UserResponse> CreateUserAsync (CreateUserRequest request)
         {
@@ -24,7 +23,7 @@ namespace WebShop.Application.Services
                 throw new ValidationException(result.Errors);
             }
             repository.Add(user);
-            await unitOfWork.SaveChangesAsync();
+            await repository.SaveChangesAsync();
             return user.Adapt<UserResponse>();
         }
     }

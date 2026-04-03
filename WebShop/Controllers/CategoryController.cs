@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebShop.Application.DTO;
 using WebShop.Application.Services;
+using WebShop.Domain.Entities;
 
 namespace WebShop.WebApi.Controllers
 {
     [ApiController]
     [Route("api/categories/")]
     public class CategoriesController
-        (CategoryService categoryService)
+        (BaseService<Category,Guid,CategoryResponse> categoryService)
         : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> Create (CreateCategoryRequest request)
+        [HttpGet]
+        public async Task<IActionResult> GetAll ()
         {
-            CategoryResponse result = await categoryService.CreateCategoryAsync(request);
+            CategoryResponse[] result = await categoryService.GetAllAsync();
             return Ok(result);
         }
 
@@ -23,10 +24,25 @@ namespace WebShop.WebApi.Controllers
             CategoryResponse result = await categoryService.GetByIdAsync(id);
             return Ok(result);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetRoot ()
+
+        [HttpPost]
+        public async Task<IActionResult> Create (CreateCategoryRequest request)
         {
-            CategoryResponse[] result = await categoryService.GetRootAsync();
+            CategoryResponse result = await categoryService.Create(request);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update (UpdateCategoryRequest request)
+        {
+            CategoryResponse result = await categoryService.Update(request);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Remove (Guid id)
+        {
+            CategoryResponse result = await categoryService.RemoveById(id);
             return Ok(result);
         }
     }

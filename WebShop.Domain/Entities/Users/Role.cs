@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class Role : IEntity<Guid>
+    public sealed class Role : BaseEntity<Guid>
     {
         public Guid Id { get; set; }
         public ICollection<User> Users { get; set; } = new List<User>();

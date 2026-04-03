@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\AttributeService.cs" />
+    <Compile Remove="Services\AttributeTypeService.cs" />
+    <Compile Remove="Services\BranchService.cs" />
+    <Compile Remove="Services\CatalogService.cs" />
+    <Compile Remove="Services\OrderItemService.cs" />
+    <Compile Remove="Services\OrderService.cs" />
+    <Compile Remove="Services\OrderStatusService.cs" />
+    <Compile Remove="Services\ProductImageService.cs" />
+    <Compile Remove="Services\RoleService.cs" />
+    <Compile Remove="Services\StockService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="Mapster" Version="10.0.1" />

@@ -11,11 +11,10 @@ namespace WebShop.Application.Services
 {
     public class ProductImageService
         (IRepository<ProductImage, Guid> repository,
-        IUnitOfWork unitOfWork,
         ProductImageValidator validator,
         IFileService fileService)
         : BaseService<ProductImage, Guid, ProductImageResponse>
-        (repository, unitOfWork)
+        (repository)
     {
         public async Task<ProductImageResponse> CreateProductImageAsync (CreateProductImageRequest request, IFormFile file)
         {
@@ -27,7 +26,7 @@ namespace WebShop.Application.Services
             }
             repository.Add(productImage);
             await fileService.SaveFileAsync(file, productImage);
-            await unitOfWork.SaveChangesAsync();
+            await repository.SaveChangesAsync();
             return productImage.Adapt<ProductImageResponse>();
         }
         public async Task<ProductImageResponse> GetProductImageAsync (GetProductImageRequest request)
