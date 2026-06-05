@@ -9,9 +9,9 @@ using WebShop.Domain.Interfaces;
 namespace WebShop.Application.Services
 {
     public class ProductService
-        (IRepository<Product, Guid> repository,
+        (IRepository<Product> repository,
         ProductValidator validator)
-        : BaseService<Product, Guid, ProductResponse>
+        : BaseService<Product, ProductResponse>
         (repository, validator)
     {
         public async Task<ProductResponse> CreateProductAsync (CreateProductRequest request)

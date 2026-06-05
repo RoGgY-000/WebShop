@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using WebShop.Domain.Entities;
+using WebShop.Domain.Common;
 using WebShop.Domain.Interfaces;
 
 namespace WebShop.Infrastructure.Repositories
 {
-    public class Repository<T, TKey> (AppDbContext context) : IRepository<T, TKey> where T : BaseEntity<TKey>
+    public class Repository<T> (AppDbContext context) : IRepository<T> 
+        where T : BaseEntity
     {
-        protected readonly DbSet<T> _dbSet = context.Set<T>();
+        protected readonly DbSet<T> dbSet = context.Set<T>();
 
-        public virtual async Task<T?> GetByIdAsync (TKey id) => await _dbSet.FindAsync(id);
+        public virtual async Task<T?> GetByIdAsync (Guid id) => await dbSet.FindAsync(id);
 
-        public virtual async Task<T[]> GetAllAsync () => await _dbSet.ToArrayAsync();
+        public virtual async Task<T[]> GetAllAsync () => await dbSet.ToArrayAsync();
 
-        public void Add (T entity) => _dbSet.Add(entity);
+        public virtual async Task<T[]> GetByPredicate (Func<T, bool> p) => dbSet.Where(p).ToArray();
 
-        public void Update (T entity) => _dbSet.Update(entity);
+        public void Add (T entity) => dbSet.Add(entity);
 
-        public void Remove (T entity) => _dbSet.Remove(entity);
+        public void Update (T entity) => dbSet.Update(entity);
 
-        public Task SaveChangesAsync() => context.SaveChangesAsync();
+        public void Remove (T entity) => dbSet.Remove(entity);
+
+        public async Task SaveChangesAsync() => await context.SaveChangesAsync();
     }
 }

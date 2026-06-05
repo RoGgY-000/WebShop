@@ -13,15 +13,10 @@ namespace WebShop.Infrastructure
 
         public DbSet<User> Users => Set<User>();
         public DbSet<Role> Roles => Set<Role>();
-        public DbSet<Branch> Branches => Set<Branch>();
         public DbSet<Product> Products => Set<Product>();
-        public DbSet<Domain.Entities.Attribute> Attributes => Set<Domain.Entities.Attribute>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Category> Categories => Set<Category>();
-        public DbSet<Stock> Stocks => Set<Stock>();
-        public DbSet<ProductImage> ProductImages => Set<ProductImage>();
         public DbSet<OrderStatus> OrderStatuses => Set<OrderStatus>();
-        public DbSet<AttributeType> AttributeTypes => Set<AttributeType>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
         protected override void OnModelCreating (ModelBuilder modelBuilder)

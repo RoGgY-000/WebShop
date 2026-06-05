@@ -21,11 +21,11 @@ namespace WebShop.Infrastructure.Configurations
             builder.Property(p => p.BasePrice)
                    .IsRequired();
 
-            builder.Property(p => p.Attributes)
-                   .HasColumnType("jsonb");
+            //builder.Property(p => p.Attributes)
+            //       .HasColumnType("jsonb");
 
-            builder.HasIndex(p => p.Attributes)
-                   .HasMethod("gin");
+            //builder.HasIndex(p => p.Attributes)
+            //       .HasMethod("gin");
 
             builder.HasOne(p => p.Category)
                    .WithMany(c => c.Products)

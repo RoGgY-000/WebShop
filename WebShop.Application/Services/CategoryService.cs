@@ -11,9 +11,9 @@ using FluentValidation.Results;
 namespace WebShop.Application.Services
 {
     public class CategoryService
-        (IRepository<Category, Guid> repository,
+        (IRepository<Category> repository,
         IValidator<Category> validator)
-        : BaseService<Category, Guid, CategoryResponse>
+        : BaseService<Category, CategoryResponse>
         (repository, validator)
     {
         public async Task<CategoryResponse> CreateCategoryAsync (CreateCategoryRequest request)

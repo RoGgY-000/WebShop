@@ -9,9 +9,9 @@ using WebShop.Application.Validators;
 namespace WebShop.Application.Services
 {
     public class UserService 
-        (IRepository<User, Guid> repository,
+        (IRepository<User> repository,
         IValidator<User> validator)
-        : BaseService<User,Guid,UserResponse>
+        : BaseService<User, UserResponse>
         (repository, validator)
     {
         public async Task<UserResponse> CreateUserAsync (CreateUserRequest request)

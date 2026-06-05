@@ -9,7 +9,7 @@ namespace WebShop.Application.Validators
 {
     public class CategoryValidator : AbstractValidator<Category>
     {
-        public CategoryValidator(IRepository<Category, Guid> repository)
+        public CategoryValidator(IRepository<Category> repository)
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebShop.Domain.Common;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class User : BaseEntity<Guid>
+    public sealed class User : BaseEntity
     {
         public Guid Id { get; set; }
         public ICollection<Order> Orders { get; set; } = new List<Order>();

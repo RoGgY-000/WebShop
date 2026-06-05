@@ -18,9 +18,9 @@ namespace WebShop.Infrastructure.Configurations
                    .WithMany(o => o.Items)
                    .HasForeignKey(oi => oi.OrderId);
 
-            builder.HasOne(oi => oi.Product)
-                   .WithMany(p => p.OrderItems)
-                   .HasForeignKey(oi => oi.ProductId);
+            //builder.HasOne(oi => oi.Product)
+            //       .WithMany(p => p.OrderItems)
+            //       .HasForeignKey(oi => oi.ProductId);
         }
     }
 }

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebShop.Domain.Entities;
+using WebShop.Domain.Common;
 
 namespace WebShop.Domain.Interfaces
 {
-    public interface IRepository<T,TKey> where T : BaseEntity<TKey>
+    public interface IRepository<T> 
+        where T : BaseEntity
     {
-        Task<T?> GetByIdAsync (TKey id);
-        Task<T[]> GetAllAsync ();
+        Task<T?> GetByIdAsync (Guid id);
+        Task<T[]> GetByPredicate (Func<T, bool> p);
+		Task<T[]> GetAllAsync ();
         void Add (T entity);
         void Update (T entity);
         void Remove (T entity);

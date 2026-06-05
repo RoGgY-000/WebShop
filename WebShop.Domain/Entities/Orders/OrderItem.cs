@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebShop.Domain.Common;
 
 namespace WebShop.Domain.Entities
 {
-    public sealed class OrderItem : BaseEntity<Guid>
+    public sealed class OrderItem : BaseEntity
     {
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }

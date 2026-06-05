@@ -21,10 +21,6 @@ namespace WebShop.Infrastructure.Configurations
                    .WithMany(u => u.Orders)
                    .HasForeignKey(o => o.UserId);
 
-            builder.HasOne(o => o.Branch)
-                   .WithMany(b => b.Orders)
-                   .HasForeignKey(o => o.BranchId);
-
             builder.HasOne(o => o.Status)
                    .WithMany(s => s.Orders)
                    .HasForeignKey(o => o.StatusId);

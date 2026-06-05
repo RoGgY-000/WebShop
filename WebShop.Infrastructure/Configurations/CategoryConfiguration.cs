@@ -24,9 +24,9 @@ namespace WebShop.Infrastructure.Configurations
                    .OnDelete(DeleteBehavior.Restrict)
                    .IsRequired(false);
 
-            builder.HasMany(c => c.Attributes)
-                   .WithMany(a => a.Categories)
-                   .UsingEntity(ca => ca.ToTable("CategoryAttributes"));
+            //builder.HasMany(c => c.Attributes)
+            //       .WithMany(a => a.Categories)
+            //       .UsingEntity(ca => ca.ToTable("CategoryAttributes"));
         }
     }
 }

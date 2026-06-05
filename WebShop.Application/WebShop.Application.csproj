@@ -11,7 +11,6 @@
     <Compile Remove="Services\AttributeService.cs" />
     <Compile Remove="Services\AttributeTypeService.cs" />
     <Compile Remove="Services\BranchService.cs" />
-    <Compile Remove="Services\CatalogService.cs" />
     <Compile Remove="Services\OrderItemService.cs" />
     <Compile Remove="Services\OrderService.cs" />
     <Compile Remove="Services\OrderStatusService.cs" />

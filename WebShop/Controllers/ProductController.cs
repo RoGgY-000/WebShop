@@ -6,19 +6,17 @@ using WebShop.Infrastructure;
 
 namespace WebShop.WebApi.Controllers
 {
-
     [ApiController]
-    [Route("api/products/")]
+    [Route("api/products")]
     public class ProductsController 
-        (ProductService productService,
-        FileService fileService) 
+        (BaseService<Product, ProductResponse> productService) 
         : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> Create (CreateProductRequest request)
         {
-            ProductResponse result = await productService.CreateProductAsync(request);
-            return Ok(result);
+            await productService.CreateAsync(request);
+            return Created();
         }
 
         [HttpGet("{id}")]
@@ -28,11 +26,18 @@ namespace WebShop.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update (UpdateProductRequest request)
         {
-            ProductResponse result = await productService.Update(request);
+            ProductResponse result = await productService.UpdateAsync(request);
             return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove (Guid id)
+        {
+            await productService.RemoveById(id);
+            return NoContent();
         }
     }
 }

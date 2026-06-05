@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebShop.Application.DTO
+namespace WebShop.Application.Common
 {
     public interface IRequest
     {
