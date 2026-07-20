@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebShop.Domain.Entities;
 
@@ -21,7 +18,7 @@ namespace WebShop.Infrastructure.Configurations
             builder.HasOne(c => c.ParentCategory)
                    .WithMany(c => c.SubCategories)
                    .HasForeignKey(c => c.ParentCategoryId)
-                   .OnDelete(DeleteBehavior.Restrict)
+                   .OnDelete(DeleteBehavior.Cascade)
                    .IsRequired(false);
 
             //builder.HasMany(c => c.Attributes)

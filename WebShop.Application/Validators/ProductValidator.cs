@@ -18,7 +18,7 @@ namespace WebShop.Application.Validators
 			RuleFor(c => c.CategoryId)
 				.MustAsync(async (id, cancellation) =>
 				{
-					Product? product = await repository.GetByIdAsync(id);
+					Product? product = await repository.GetByIdForReadAsync(id);
 					return product != null && product.CategoryId != Guid.Empty;
 				})
 				.WithMessage("Родительская категория не найдена");

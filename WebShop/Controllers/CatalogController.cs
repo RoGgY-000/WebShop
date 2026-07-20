@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebShop.Application.DTO;
 using WebShop.Application.Services;
-using WebShop.Domain.Entities;
 
 namespace WebShop.WebApi.Controllers
 {
@@ -24,26 +23,5 @@ namespace WebShop.WebApi.Controllers
 			CategoryResponse result = await service.GetCategoryAsync(id);
 			return Ok(result);
 		}
-
-		[HttpPost]
-		public async Task<IActionResult> CreateCategory (CreateCategoryRequest request)
-		{
-			await service.CreateCategoryAsync(request);
-			return Created();
-		}
-
-		//[HttpPut]
-		//public async Task<IActionResult> UpdateCategory (UpdateCategoryRequest request)
-		//{
-		//	CategoryResponse result = await service.UpdateAsync(request);
-		//	return Ok(result);
-		//}
-
-		//[HttpDelete("{id}")]
-		//public async Task<IActionResult> RemoveCategory (Guid id)
-		//{
-		//	await service.RemoveById(id);
-		//	return NoContent();
-		//}
 	}
 }

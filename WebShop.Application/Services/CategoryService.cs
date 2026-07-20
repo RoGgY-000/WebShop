@@ -24,5 +24,5 @@ namespace WebShop.Application.Services
             await repository.SaveChangesAsync();
             return category.Adapt<CategoryResponse>();
         }
-    }
+	}
 }

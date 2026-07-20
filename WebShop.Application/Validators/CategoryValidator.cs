@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 using WebShop.Domain.Entities;
 using WebShop.Domain.Interfaces;
 
@@ -21,7 +18,7 @@ namespace WebShop.Application.Validators
                     {
                         return true;
                     }
-                    Category? parent = await repository.GetByIdAsync(id.Value);
+                    Category? parent = await repository.GetByIdForReadAsync(id.Value);
                     return parent != null;
                 })
                 .WithMessage("Родительская категория не найдена");

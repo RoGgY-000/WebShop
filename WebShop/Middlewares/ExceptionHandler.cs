@@ -1,13 +1,13 @@
 ﻿using System.Net;
 using System.Text.Json;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using WebShop.Domain.Exceptions;
 
 namespace WebApi.Middlewares
 {
     public class ExceptionHandler 
-        (RequestDelegate next, 
-        ILogger<ExceptionHandler> logger)
+        (ILogger<ExceptionHandler> logger)
         : IExceptionHandler
     {
 		public async ValueTask<bool> TryHandleAsync 
@@ -19,8 +19,9 @@ namespace WebApi.Middlewares
 			HttpStatusCode code = exception switch
             {
                 KeyNotFoundException => HttpStatusCode.NotFound,
-                ArgumentException => HttpStatusCode.BadRequest,
                 NotFoundException => HttpStatusCode.NotFound,
+                ArgumentException => HttpStatusCode.BadRequest,
+				ValidationException => HttpStatusCode.BadRequest,
                 _ => HttpStatusCode.InternalServerError
             };
 
@@ -34,7 +35,7 @@ namespace WebApi.Middlewares
             context.Response.StatusCode = (int) code;
 
             await context.Response.WriteAsync(result);
-            return code != HttpStatusCode.InternalServerError;
+            return true;
         }
     }
 }

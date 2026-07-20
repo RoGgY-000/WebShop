@@ -8,12 +8,12 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController (UserService userService) : ControllerBase
     {
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create (CreateUserRequest request)
-        {
-            UserResponse result = await userService.CreateUserAsync(request);
-            return Ok(result);
-        }
+        //[HttpPost]
+        //[Consumes("multipart/form-data")]
+        //public async Task<IActionResult> Create (CreateUserRequest request)
+        //{
+        //    UserResponse result = await userService.CreateUserAsync(request);
+        //    return Ok(result);
+        //}
     }
 }

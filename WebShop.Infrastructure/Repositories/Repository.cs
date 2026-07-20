@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebShop.Domain.Common;
 using WebShop.Domain.Interfaces;
 
@@ -12,11 +9,24 @@ namespace WebShop.Infrastructure.Repositories
     {
         protected readonly DbSet<T> dbSet = context.Set<T>();
 
-        public virtual async Task<T?> GetByIdAsync (Guid id) => await dbSet.FindAsync(id);
+        public virtual async Task<T?> GetByIdForReadAsync (Guid id) 
+            => await dbSet
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
 
-        public virtual async Task<T[]> GetAllAsync () => await dbSet.ToArrayAsync();
+        public virtual async Task<T?> GetByIdForUpdateAsync (Guid id)
+            => await dbSet.FindAsync(id);
 
-        public virtual async Task<T[]> GetByPredicate (Func<T, bool> p) => dbSet.Where(p).ToArray();
+        public virtual async Task<T[]> GetAllAsync () 
+            => await dbSet
+            .AsNoTracking()
+            .ToArrayAsync();
+
+        public virtual async Task<T[]> GetByPredicate (Func<T, bool> p) 
+            => dbSet
+            .AsNoTracking()
+            .Where(p)
+            .ToArray();
 
         public void Add (T entity) => dbSet.Add(entity);
 

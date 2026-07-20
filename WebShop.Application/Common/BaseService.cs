@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebShop.Domain.Interfaces;
+﻿using WebShop.Domain.Interfaces;
 using WebShop.Domain.Exceptions;
 using Mapster;
 using FluentValidation;
@@ -25,7 +22,8 @@ namespace WebShop.Application.Services
 
         public async Task<TResponse> GetByIdAsync (Guid id)
         {
-            TEntity entity = await repository.GetByIdAsync(id) ?? throw new NotFoundException();
+            TEntity entity = await repository.GetByIdForReadAsync(id) 
+                ?? throw new NotFoundException("Ресурс не найден");
             return entity.Adapt<TResponse>();
         }
 
@@ -55,7 +53,8 @@ namespace WebShop.Application.Services
 
         public async Task<TResponse> RemoveById (Guid id)
         {
-            TEntity entity = await repository.GetByIdAsync(id) ?? throw new NotFoundException();
+            TEntity entity = await repository.GetByIdForReadAsync(id) 
+                ?? throw new NotFoundException("Ресурс не найден");
             repository.Remove(entity);
             await repository.SaveChangesAsync();
             return entity.Adapt<TResponse>();

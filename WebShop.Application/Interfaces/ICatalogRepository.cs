@@ -9,8 +9,6 @@ namespace WebShop.Domain.Interfaces
 	public interface ICatalogRepository
 	{
 		Task<Category[]> GetCatalogAsync();
-		Task<Category> GetCategoryAsync (Guid id);
-		Task CreateCategory (Category category);
-		Task SaveChangesAsync ();
+		Task<Category?> GetCategoryAsync (Guid id);
 	}
 }

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using WebShop.Application.DTO;
 using WebShop.Domain.Entities;
+using WebShop.Domain.Exceptions;
 using WebShop.Domain.Interfaces;
 
 namespace WebShop.Infrastructure.Repositories
@@ -24,18 +25,14 @@ namespace WebShop.Infrastructure.Repositories
             return root;
         }
 
-		public async Task<Category> GetCategoryAsync (Guid id)
+		public async Task<Category?> GetCategoryAsync (Guid id)
         {
             Category? category = await context.Categories
+                .AsNoTracking()
                 .Include(c => c.SubCategories)
-                .Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
-            return category!;
-        }
-
-		public async Task CreateCategory (Category category) 
-            => await context.Categories.AddAsync(category);
-
-		public async Task SaveChangesAsync () 
-            => await context.SaveChangesAsync();
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync(c => c.Id == id);
+			return category;
+		}
 	}
 }

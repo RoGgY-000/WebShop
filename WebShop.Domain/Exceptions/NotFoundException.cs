@@ -5,7 +5,8 @@ using WebShop.Domain.Entities;
 
 namespace WebShop.Domain.Exceptions
 {
-    public class NotFoundException : Exception
-    {
-    }
+	public class NotFoundException : Exception
+	{
+		public NotFoundException (string message) : base(message) { }
+	}
 }

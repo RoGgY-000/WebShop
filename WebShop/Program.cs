@@ -19,9 +19,11 @@ namespace WebShop.WebApi
             builder.Services.AddOpenApi();
             builder.Services.AddDbContextPool<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddExceptionHandler<ExceptionHandler>();
             builder.Services.AddProblemDetails();
 
             builder.Services.AddScoped<CatalogService>();
+            builder.Services.AddScoped(typeof(BaseService<,>));
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped(typeof(ICatalogRepository), typeof(CatalogRepository));

@@ -17,7 +17,7 @@ namespace WebShop.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.5")
+                .HasAnnotation("ProductVersion", "10.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -37,73 +37,10 @@ namespace WebShop.Infrastructure.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("WebShop.Domain.Entities.Attribute", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeId");
-
-                    b.ToTable("Attributes", (string)null);
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.AttributeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AttributeTypes", (string)null);
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.Branch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Branches", (string)null);
-                });
-
             modelBuilder.Entity("WebShop.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("AttributeId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -115,8 +52,6 @@ namespace WebShop.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AttributeId");
 
                     b.HasIndex("ParentCategoryId");
 
@@ -142,8 +77,6 @@ namespace WebShop.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("StatusId");
 
@@ -217,29 +150,6 @@ namespace WebShop.Infrastructure.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("WebShop.Domain.Entities.ProductImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("SortingIndex")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImages", (string)null);
-                });
-
             modelBuilder.Entity("WebShop.Domain.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -256,30 +166,6 @@ namespace WebShop.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles", (string)null);
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.Stock", b =>
-                {
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BranchId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ProductId", "BranchId");
-
-                    b.HasIndex("BranchId");
-
-                    b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("WebShop.Domain.Entities.User", b =>
@@ -329,39 +215,18 @@ namespace WebShop.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebShop.Domain.Entities.Attribute", b =>
-                {
-                    b.HasOne("WebShop.Domain.Entities.AttributeType", "AttributeType")
-                        .WithMany("Attributes")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AttributeType");
-                });
-
             modelBuilder.Entity("WebShop.Domain.Entities.Category", b =>
                 {
-                    b.HasOne("WebShop.Domain.Entities.Attribute", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("AttributeId");
-
                     b.HasOne("WebShop.Domain.Entities.Category", "ParentCategory")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("WebShop.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("WebShop.Domain.Entities.Branch", "Branch")
-                        .WithMany("Orders")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebShop.Domain.Entities.OrderStatus", "Status")
                         .WithMany("Orders")
                         .HasForeignKey("StatusId")
@@ -373,8 +238,6 @@ namespace WebShop.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Branch");
 
                     b.Navigation("Status");
 
@@ -409,53 +272,6 @@ namespace WebShop.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.ProductImage", b =>
-                {
-                    b.HasOne("WebShop.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.Stock", b =>
-                {
-                    b.HasOne("WebShop.Domain.Entities.Branch", "Branch")
-                        .WithMany("Stocks")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebShop.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Branch");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.Attribute", b =>
-                {
-                    b.Navigation("Categories");
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.AttributeType", b =>
-                {
-                    b.Navigation("Attributes");
-                });
-
-            modelBuilder.Entity("WebShop.Domain.Entities.Branch", b =>
-                {
-                    b.Navigation("Orders");
-
-                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("WebShop.Domain.Entities.Category", b =>
