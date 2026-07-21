@@ -2,7 +2,6 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Middlewares;
 using WebShop.Application.Services;
-using WebShop.Domain.Entities;
 using WebShop.Domain.Interfaces;
 using WebShop.Infrastructure;
 using WebShop.Infrastructure.Repositories;

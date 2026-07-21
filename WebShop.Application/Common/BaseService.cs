@@ -44,7 +44,11 @@ namespace WebShop.Application.Services
 
         public async Task<TResponse> UpdateAsync (IRequest request)
         {
-            TEntity entity = request.Adapt<TEntity>();
+			TEntity entity = request.Adapt<TEntity>();
+            if ( await repository.GetByIdForUpdateAsync(entity.Id) == null )
+            {
+                throw new NotFoundException("Ресурс не найден");
+            }
             await validator.ValidateAndThrowAsync(entity);
             repository.Update(entity);
             await repository.SaveChangesAsync();

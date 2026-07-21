@@ -9,6 +9,7 @@ namespace WebShop.Domain.Interfaces
         where T : BaseEntity
     {
         Task<T?> GetByIdForReadAsync (Guid id);
+        Task<T?> GetByIdForUpdateAsync (Guid id);
         Task<T[]> GetByPredicate (Func<T, bool> p);
 		Task<T[]> GetAllAsync ();
         void Add (T entity);

@@ -9,7 +9,7 @@ namespace WebShop.Application.Validators
 {
     public class ProductValidator : AbstractValidator<Product>
     {
-		public ProductValidator (IRepository<Product> repository)
+		public ProductValidator (IRepository<Product> repository, IRepository<Category> categoryRepo)
 		{
 			RuleFor(c => c.Name)
 				.NotNull()
@@ -18,8 +18,8 @@ namespace WebShop.Application.Validators
 			RuleFor(c => c.CategoryId)
 				.MustAsync(async (id, cancellation) =>
 				{
-					Product? product = await repository.GetByIdForReadAsync(id);
-					return product != null && product.CategoryId != Guid.Empty;
+					Category? category = await categoryRepo.GetByIdForReadAsync(id);
+					return category != null && category.Id == id;
 				})
 				.WithMessage("Родительская категория не найдена");
 			RuleFor(c => c.BasePrice)
