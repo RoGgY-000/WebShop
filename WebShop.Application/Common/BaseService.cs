@@ -45,17 +45,16 @@ namespace WebShop.Application.Services
         public virtual async Task<TResponse> UpdateAsync (IRequest request)
         {
 			TEntity entity = request.Adapt<TEntity>();
-            if ( await repository.GetByIdForUpdateAsync(entity.Id) == null )
-            {
-                throw new NotFoundException("Ресурс не найден");
-            }
-            await validator.ValidateAndThrowAsync(entity);
-            repository.Update(entity);
+			TEntity? oldEntity = await repository.GetByIdForUpdateAsync(entity.Id) 
+                ?? throw new NotFoundException("Ресурс не найден");
+			await validator.ValidateAndThrowAsync(entity);
+            entity.Adapt(oldEntity);
+            repository.Update(oldEntity);
             await repository.SaveChangesAsync();
-            return entity.Adapt<TResponse>();
+            return oldEntity.Adapt<TResponse>();
         }
 
-        public async Task<TResponse> RemoveById (Guid id)
+        public async Task<TResponse> RemoveByIdAsync (Guid id)
         {
             TEntity entity = await repository.GetByIdForReadAsync(id) 
                 ?? throw new NotFoundException("Ресурс не найден");

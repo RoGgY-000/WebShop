@@ -28,7 +28,7 @@ namespace WebShop.WebApi.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> RemoveCategory (Guid id)
 		{
-			await service.RemoveById(id);
+			await service.RemoveByIdAsync(id);
 			return NoContent();
 		}
 	}

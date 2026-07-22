@@ -3,7 +3,7 @@ using WebShop.Application.Services;
 using WebShop.Application.DTO;
 namespace WebApi.Controllers
 {
-    [Route("api/users")]
+    [Route("api/user")]
     [ApiController]
     public class UserController 
         (UserService userService) 
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove (Guid id)
         {
-            await userService.RemoveById(id);
+            await userService.RemoveByIdAsync(id);
             return NoContent();
         }
     }

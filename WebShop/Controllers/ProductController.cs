@@ -6,7 +6,7 @@ using WebShop.Domain.Entities;
 namespace WebShop.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/products")]
+    [Route("api/product")]
     public class ProductsController 
         (BaseService<Product, ProductResponse> productService) 
         : ControllerBase
@@ -35,7 +35,7 @@ namespace WebShop.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove (Guid id)
         {
-            await productService.RemoveById(id);
+            await productService.RemoveByIdAsync(id);
             return NoContent();
         }
     }
