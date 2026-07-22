@@ -64,14 +64,11 @@ namespace WebShop.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BranchId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("DateTimeCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -111,11 +108,9 @@ namespace WebShop.Infrastructure.Migrations
 
             modelBuilder.Entity("WebShop.Domain.Entities.OrderStatus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -175,7 +170,6 @@ namespace WebShop.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
@@ -187,7 +181,7 @@ namespace WebShop.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("Passwordhash")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 

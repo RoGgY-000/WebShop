@@ -17,7 +17,8 @@ namespace WebShop.Infrastructure.Configurations
             builder.Property(r => r.Name)
                    .IsRequired();
 
-            builder.HasIndex(r => r.Name).IsUnique();
+            builder.HasIndex(r => r.Name)
+                .IsUnique();
         }
     }
 }

@@ -15,7 +15,6 @@ namespace WebShop.Infrastructure.Configurations
             builder.HasKey(u => u.Id);
 
             builder.Property(u => u.Email)
-                .IsRequired()
                 .HasMaxLength(255);
 
             builder.Property(u => u.FirstName)
@@ -27,7 +26,8 @@ namespace WebShop.Infrastructure.Configurations
             builder.Property(u => u.PhoneNumber)
                 .HasMaxLength(255);
 
-            builder.Property(u => u.Passwordhash).IsRequired();
+            builder.Property(u => u.PasswordHash)
+                .IsRequired();
 
             builder.HasMany(u => u.Roles)
                    .WithMany(r => r.Users)

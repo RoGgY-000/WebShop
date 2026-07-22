@@ -42,7 +42,7 @@ namespace WebShop.Application.Services
             return entity.Adapt<TResponse>();
         }
 
-        public async Task<TResponse> UpdateAsync (IRequest request)
+        public virtual async Task<TResponse> UpdateAsync (IRequest request)
         {
 			TEntity entity = request.Adapt<TEntity>();
             if ( await repository.GetByIdForUpdateAsync(entity.Id) == null )

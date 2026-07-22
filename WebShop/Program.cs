@@ -21,11 +21,12 @@ namespace WebShop.WebApi
             builder.Services.AddExceptionHandler<ExceptionHandler>();
             builder.Services.AddProblemDetails();
 
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<CatalogService>();
             builder.Services.AddScoped(typeof(BaseService<,>));
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            builder.Services.AddScoped(typeof(ICatalogRepository), typeof(CatalogRepository));
+            builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
 
             builder.Services.AddValidatorsFromAssembly(typeof(BaseService<,>).Assembly);
             WebApplication app = builder.Build();

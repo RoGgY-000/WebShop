@@ -10,10 +10,14 @@ namespace WebShop.Application.Validators
     {
         public UserValidator()
         {
+            RuleFor(u => u.PasswordHash)
+                .NotNull()
+                .NotEmpty();
+
             RuleFor(u => u)
-                .Must(u
-                => !string.IsNullOrWhiteSpace(u.Email)
-                ||!string.IsNullOrWhiteSpace(u.PhoneNumber))
+                .Must(
+                u => !string.IsNullOrWhiteSpace(u.Email)
+                || !string.IsNullOrWhiteSpace(u.PhoneNumber))
                 .WithMessage("Необходимо указать либо электронную почту, либо номер телефона.");
 
             RuleFor(u => u.Email)

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebShop.Application.Common;
+﻿using WebShop.Application.Common;
 
 namespace WebShop.Application.DTO
 {

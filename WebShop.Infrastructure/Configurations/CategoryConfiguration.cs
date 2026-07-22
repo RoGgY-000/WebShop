@@ -20,10 +20,6 @@ namespace WebShop.Infrastructure.Configurations
                    .HasForeignKey(c => c.ParentCategoryId)
                    .OnDelete(DeleteBehavior.Cascade)
                    .IsRequired(false);
-
-            //builder.HasMany(c => c.Attributes)
-            //       .WithMany(a => a.Categories)
-            //       .UsingEntity(ca => ca.ToTable("CategoryAttributes"));
         }
     }
 }

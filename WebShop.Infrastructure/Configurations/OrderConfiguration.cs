@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebShop.Domain.Entities;
 
@@ -12,9 +9,9 @@ namespace WebShop.Infrastructure.Configurations
         public void Configure (EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Orders");
-            builder.HasKey(os => os.Id);
+            builder.HasKey(o => o.Id);
 
-            builder.Property(os => os.DateTimeCreated)
+            builder.Property(o => o.DateTimeCreated)
                    .IsRequired();
 
             builder.HasOne(o => o.User)

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using Mapster;
+﻿using Mapster;
 using WebShop.Application.DTO;
-using WebShop.Application.Validators;
 using WebShop.Domain.Entities;
 using WebShop.Domain.Exceptions;
 using WebShop.Domain.Interfaces;
