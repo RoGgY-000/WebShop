@@ -16,10 +16,17 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update (UpdateUserRequest request)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get (Guid id)
         {
-            UserResponse result = await userService.UpdateAsync(request);
+            UserResponse result = await userService.GetByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update (Guid id, UpdateUserRequest request)
+        {
+            UserResponse result = await userService.UpdateAsync(id, request);
             return Ok(result);
         }
 
@@ -35,6 +42,12 @@ namespace WebApi.Controllers
         {
             await userService.RemoveByIdAsync(id);
             return NoContent();
+        }
+
+        [HttpPost("{userId}/roles")]
+        public async Task<IActionResult> AddRole (Guid userId, AddRoleToUserRequest request)
+        {
+            await userService.AddRoleAsync(userId, request);
         }
     }
 }

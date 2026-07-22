@@ -10,6 +10,7 @@ namespace WebShop.Application.Services
 {
     public class UserService 
         (IRepository<User> repository,
+        IRepository<Role> roleRepository,
         IValidator<User> validator)
         : BaseService<User, UserResponse>
         (repository, validator)
@@ -28,7 +29,7 @@ namespace WebShop.Application.Services
             return user.Adapt<UserResponse>();
         }
 
-		public override async Task<UserResponse> UpdateAsync (IRequest request)
+		public override async Task<UserResponse> UpdateAsync (Guid id, IRequest request)
         {
             UpdateUserRequest? userRequest = request as UpdateUserRequest;
 			if ( userRequest == null
@@ -43,6 +44,21 @@ namespace WebShop.Application.Services
 			repository.Update(newUser);
 			await repository.SaveChangesAsync();
 			return newUser.Adapt<UserResponse>();
+		}
+
+        public async Task<UserResponse> AddRoleAsync (Guid userId, AddRoleToUserRequest request)
+        {
+			User user = await repository.GetByIdForUpdateAsync(userId) 
+                ?? throw new NotFoundException("Пользователь не найден");
+            Role role = await roleRepository.GetByIdForReadAsync(request.RoleId)
+                ?? throw new NotFoundException("Роль не найдена");
+            if ( user.Roles.Contains(role) )
+            {
+                throw new InvalidOperationException("Пользователь уже имеет эту роль");
+            }
+            user.Roles.Add(role);
+            await repository.SaveChangesAsync();
+            return user.Adapt<UserResponse>();
 		}
     }
 }

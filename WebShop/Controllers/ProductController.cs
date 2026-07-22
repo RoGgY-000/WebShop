@@ -7,7 +7,7 @@ namespace WebShop.WebApi.Controllers
 {
     [ApiController]
     [Route("api/product")]
-    public class ProductsController 
+    public class ProductController 
         (BaseService<Product, ProductResponse> productService) 
         : ControllerBase
     {
